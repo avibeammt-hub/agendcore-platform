@@ -2,11 +2,11 @@
   "name": "acme-agenda-backend",
   "version": "1.0.0",
   "description": "Backend ACME Agenda FHIR",
-  "main": "src/servidor.js",
+  "main": "src/server.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "nodemon src/servidor.js",
-    "start": "node src/servidor.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "dependencies": {
     "axios": "^1.15.2",

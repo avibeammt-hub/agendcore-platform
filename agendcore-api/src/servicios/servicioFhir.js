@@ -1,4 +1,4 @@
-const axios = require('axios');
+const fhirClient = require('../config/fhirClient');
 require('dotenv').config();
 
 const URL_FHIR = process.env.FHIR_BASE_URL;
@@ -20,15 +20,10 @@ const crearOrganizacionFhir = async (ips) => {
       ]
     };
 
-    const respuesta = await axios.post(
-      `${URL_FHIR}/Organization`,
-      recurso,
-      {
-        headers: {
-          'Content-Type': 'application/fhir+json'
-        }
-      }
-    );
+    const respuesta = await fhirClient.post(
+	  '/Organization',
+	  recurso
+	);
 
     return respuesta.data;
 
@@ -55,15 +50,10 @@ const crearLocationFhir = async (sede) => {
       }
     };
 
-    const respuesta = await axios.post(
-      `${URL_FHIR}/Location`,
-      recurso,
-      {
-        headers: {
-          'Content-Type': 'application/fhir+json'
-        }
-      }
-    );
+    const respuesta = await fhirClient.post(
+	  '/Organization',
+	  recurso
+	);
 
     return respuesta.data;
 
@@ -101,16 +91,11 @@ const crearPractitionerFhir = async (profesional) => {
         }
       ]
     };
-
-    const respuesta = await axios.post(
-      `${URL_FHIR}/Practitioner`,
-      recurso,
-      {
-        headers: {
-          'Content-Type': 'application/fhir+json'
-        }
-      }
-    );
+	
+	const respuesta = await fhirClient.post(
+	  '/Practitioner',
+	  recurso
+	);
 
     return respuesta.data;
 
@@ -142,15 +127,10 @@ const crearHealthcareServiceFhir = async (servicio) => {
       ]
     };
 
-    const respuesta = await axios.post(
-      `${URL_FHIR}/HealthcareService`,
-      recurso,
-      {
-        headers: {
-          'Content-Type': 'application/fhir+json'
-        }
-      }
-    );
+	const respuesta = await fhirClient.post(
+	  '/HealthcareService',
+	  recurso
+	);
 
     return respuesta.data;
 
@@ -222,16 +202,11 @@ const crearPractitionerRoleFhir = async (rol) => {
   if (rol.fecha_fin) {
     practitionerRole.period.end = rol.fecha_fin;
   }
-
-  const respuesta = await axios.post(
-    `${URL_FHIR}/PractitionerRole`,
-    practitionerRole,
-    {
-      headers: {
-        'Content-Type': 'application/fhir+json'
-      }
-    }
-  );
+  
+    const respuesta = await fhirClient.post(
+	  '/PractitionerRole',
+	  recurso
+	);
 
   return respuesta.data;
 };
@@ -262,15 +237,11 @@ const crearScheduleFhir = async (agenda) => {
     comment: `Agenda mensual ${agenda.dias_semana || ''} ${agenda.hora_inicio || ''} - ${agenda.hora_fin || ''}`
   };
 
-  const respuesta = await axios.post(
-    `${URL_FHIR}/Schedule`,
-    schedule,
-    {
-      headers: {
-        'Content-Type': 'application/fhir+json'
-      }
-    }
-  );
+  
+  const respuesta = await fhirClient.post(
+  '/Schedule',
+  recurso
+);
 
   return respuesta.data;
 };
