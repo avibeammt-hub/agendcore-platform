@@ -53,12 +53,13 @@ formLogin.addEventListener('submit', async (e) => {
     localStorage.setItem('usuarioSesion', JSON.stringify(data.usuario));
 	loaderSistema.classList.add('d-none');
 
-    mostrarMensaje('Ingreso exitoso. Inicializando plataforma...', 'success');
+    //mostrarMensaje('Ingreso exitoso. Inicializando plataforma...', 'success');
 	btnVerClave.disabled = true;
+	document.body.style.opacity = '0';
 
     setTimeout(() => {
-      window.location.href = 'dashboard.html';
-    }, 800);
+	  window.location.href = 'dashboard.html';
+	}, 300);
 
   } catch (error) {
     console.error(error);
