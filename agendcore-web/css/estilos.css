@@ -263,3 +263,66 @@ body{
   }
 
 }
+
+.loader-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.75);
+  backdrop-filter:blur(10px);
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.loader-card{
+  width:320px;
+  background:rgba(15,23,42,.95);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  padding:40px 30px;
+  text-align:center;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
+  animation:fadeLoader .4s ease;
+}
+
+@keyframes fadeLoader{
+  from{
+    opacity:0;
+    transform:scale(.95);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.loader-spinner{
+  width:72px;
+  height:72px;
+  margin:auto;
+  border-radius:50%;
+  border:6px solid rgba(255,255,255,.08);
+  border-top-color:#3b82f6;
+  animation:spin 1s linear infinite;
+  margin-bottom:24px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.loader-card h4{
+  color:white;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.loader-card p{
+  color:#94a3b8;
+  margin:0;
+  font-size:.95rem;
+}

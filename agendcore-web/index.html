@@ -14,8 +14,22 @@
 
 <body class="login-body">
 
-  <div class="background-glow"></div>
+	<div class="background-glow"></div>
+	
+		<div id="loaderSistema" class="loader-overlay d-none">
 
+		  <div class="loader-card">
+
+			<div class="loader-spinner"></div>
+
+			<h4>Validando acceso</h4>
+
+			<p>Conectando con la plataforma interoperable...</p>
+
+		</div>
+
+	</div>
+  
   <div class="login-container">
 
     <!-- PANEL IZQUIERDO -->
@@ -135,22 +149,6 @@
               </button>
 
             </div>
-          </div>
-
-          <div class="mb-4">
-
-            <label class="form-label">Rol</label>
-
-            <select id="rol" class="form-select" required>
-              <option value="">Seleccione...</option>
-              <option value="ADMIN">Administrador</option>
-              <option value="COORDINADOR_AGENDA">Coordinador Agenda</option>
-              <option value="VENTANILLA">Ventanilla</option>
-              <option value="CALL_CENTER">Call Center</option>
-              <option value="MEDICO">Médico</option>
-              <option value="PACIENTE">Paciente</option>
-            </select>
-
           </div>
 
           <div id="mensajeLogin" class="alert d-none"></div>
