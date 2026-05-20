@@ -1,0 +1,33 @@
+.toast-custom {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    min-width: 320px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    color: white;
+    z-index: 999999;
+    transform: translateX(120%);
+    transition: all .4s ease;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+}
+
+.toast-custom.show {
+    transform: translateX(0);
+}
+
+.toast-success {
+    background: linear-gradient(135deg,#2563eb,#3b82f6);
+}
+
+.toast-danger {
+    background: linear-gradient(135deg,#dc2626,#ef4444);
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+}
