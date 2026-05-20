@@ -1,4 +1,4 @@
-const API_BASE = 'https://agendcore-platform.onrender.com';
+const API_BASE = 'https://agendcore-platform.onrender.com/api';
 
 const formLogin = document.getElementById('formLogin');
 const usuarioInput = document.getElementById('usuario');
@@ -29,7 +29,7 @@ formLogin.addEventListener('submit', async (e) => {
   }
 
   try {
-    const res = await fetch(`${API_BASE}`, {
+    const res = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ usuario, clave })

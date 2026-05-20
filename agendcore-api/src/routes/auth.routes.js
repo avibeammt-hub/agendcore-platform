@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
   iniciarSesion
-} = require('../controladores/controladorAutenticacion');
+} = require('../controllers/controladorAutenticacion');
 
 router.post('/login', iniciarSesion);
 
