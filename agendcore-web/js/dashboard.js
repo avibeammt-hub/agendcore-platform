@@ -1142,7 +1142,7 @@ async function eliminarIpsVista(id) {
 
     alert('Error conectando backend');
   }
-}========================
+}
 
 
 // =========================
