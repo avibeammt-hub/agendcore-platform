@@ -3,7 +3,6 @@ const API_BASE = 'https://agendcore-platform.onrender.com/api';
 const formLogin = document.getElementById('formLogin');
 const usuarioInput = document.getElementById('usuario');
 const claveInput = document.getElementById('clave');
-//const rolInput = document.getElementById('rol');
 const mensajeLogin = document.getElementById('mensajeLogin');
 const loaderSistema = document.getElementById('loaderSistema');
 const btnVerClave = document.getElementById('btnVerClave');
@@ -44,16 +43,10 @@ formLogin.addEventListener('submit', async (e) => {
       return;
     }
 
-    //if (rolInput.value && rolInput.value !== data.usuario.rol) {
-      //mostrarMensaje('El rol seleccionado no corresponde al usuario.', 'danger');
-      //return;
-    //}
-
     localStorage.setItem('token', data.token);
     localStorage.setItem('usuarioSesion', JSON.stringify(data.usuario));
 	loaderSistema.classList.add('d-none');
 
-    //mostrarMensaje('Ingreso exitoso. Inicializando plataforma...', 'success');
 	btnVerClave.disabled = true;
 	document.body.style.opacity = '0';
 
