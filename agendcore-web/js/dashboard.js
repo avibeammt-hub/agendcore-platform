@@ -55,13 +55,17 @@ function validarRespuestaNoAutorizada(res) {
 
 function cargarVista(vista) {
 
-  document
-    .querySelectorAll('.menu li')
-    .forEach(el => el.classList.remove('active'));
+ document
+  .querySelectorAll('.menu li')
+  .forEach(el => el.classList.remove('active'));
 
-  if (window.event && window.event.currentTarget) {
-    window.event.currentTarget.classList.add('active');
-  }
+const menuActivo = document.querySelector(
+  `.menu li[onclick="cargarVista('${vista}')"]`
+);
+
+if (menuActivo) {
+  menuActivo.classList.add('active');
+}
 
   // =========================
   // INICIO

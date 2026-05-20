@@ -6,9 +6,11 @@ async function cargarIps() {
 
     mostrarLoader('Cargando IPS...');
 
-    listaIps = await listarIpsApi();
+    const respuesta = await listarIpsApi();
 
-    renderModuloIps(listaIps);
+	listaIps = respuesta.datos || [];
+
+	renderModuloIps(listaIps);
 
     ocultarLoader();
 
