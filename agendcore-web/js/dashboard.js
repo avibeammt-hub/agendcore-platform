@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = 'https://agendcore-platform.onrender.com/api';
 
 const contenido = document.getElementById('contenido');
 const titulo = document.getElementById('tituloVista');
