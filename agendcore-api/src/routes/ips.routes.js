@@ -11,7 +11,7 @@ const {
   eliminarIps
 } = require('../controllers/ips.controller');
 
-const validarToken = require('../middlewares/validar_token');
+const validarToken = require('../middlewares/authMiddleware');
 
 router.get('/', validarToken, listarIps);
 router.post('/', validarToken, crearIps);
