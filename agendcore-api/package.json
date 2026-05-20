@@ -1,7 +1,7 @@
 {
-  "name": "acme-agenda-backend",
+  "name": "agendcore-api",
   "version": "1.0.0",
-  "description": "Backend ACME Agenda FHIR",
+  "description": "AgendCore Enterprise Healthcare Platform API"
   "main": "src/server.js",
   "type": "commonjs",
   "scripts": {

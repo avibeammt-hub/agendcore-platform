@@ -9,7 +9,7 @@ const {
   crearIps,
   actualizarIps,
   eliminarIps
-} = require('../controladores/controladorIps');
+} = require('../controllers/ips.controller');
 
 const validarToken = require('../middlewares/validar_token');
 
