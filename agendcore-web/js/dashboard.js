@@ -953,87 +953,96 @@ async function cargarResumenInicio() {
 }
 
 // =========================
-// IPS
+// IPS MODULAR
 // =========================
 
 async function cargarIps() {
-  try {
-    const res = await fetch(`${API_BASE}/ips`, { headers: headersAuth() });
-    if (validarRespuestaNoAutorizada(res)) return;
 
-    const data = await res.json();
+  const tabla = document.getElementById('tablaIps');
+
+  tabla.innerHTML = `
+    <div class="text-center p-4">
+      Cargando IPS...
+    </div>
+  `;
+
+  try {
+
+    const data = await listarIpsApi();
 
     if (!data.ok) {
-      document.getElementById('tablaIps').innerHTML = `<div class="alert alert-danger">${data.mensaje || 'Error al cargar IPS'}</div>`;
-      return;
-    }
 
-    if (!data.datos || data.datos.length === 0) {
-      document.getElementById('tablaIps').innerHTML = `<div class="alert alert-info mb-0">No hay IPS registradas.</div>`;
-      return;
-    }
-
-    let html = `
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead class="table-light">
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>NIT</th>
-              <th>FHIR ID</th>
-              <th>Estado</th>
-              <th class="text-end">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-    `;
-
-    data.datos.forEach(ips => {
-      html += `
-        <tr>
-          <td>${ips.id_ips}</td>
-          <td><strong>${ips.nombre}</strong><br><small class="text-muted">${ips.razon_social || ''}</small></td>
-          <td>${ips.nit || ''}</td>
-          <td><span class="badge bg-info">${ips.fhir_id || 'Pendiente'}</span></td>
-          <td><span class="badge ${ips.activo ? 'bg-success' : 'bg-secondary'}">${ips.activo ? 'Activo' : 'Inactivo'}</span></td>
-          <td class="text-end">
-            <button class="btn btn-sm btn-outline-primary" onclick='editarIps(${JSON.stringify(ips)})'><i class="bi bi-pencil"></i></button>
-            <button class="btn btn-sm btn-outline-danger" onclick="eliminarIps(${ips.id_ips})"><i class="bi bi-trash"></i></button>
-          </td>
-        </tr>
+      tabla.innerHTML = `
+        <div class="alert alert-danger">
+          ${data.mensaje || 'Error cargando IPS'}
+        </div>
       `;
-    });
 
-    html += `</tbody></table></div>`;
-    document.getElementById('tablaIps').innerHTML = html;
+      return;
+    }
+
+    tabla.innerHTML = renderTablaIps(data.datos);
 
   } catch (error) {
+
     console.error(error);
-    document.getElementById('tablaIps').innerHTML = `<div class="alert alert-danger">No fue posible conectar con el backend</div>`;
+
+    tabla.innerHTML = `
+      <div class="alert alert-danger">
+        Error conectando con backend
+      </div>
+    `;
   }
 }
 
 function abrirModalIps() {
+
   limpiarFormularioIps();
-  document.getElementById('tituloModalIps').textContent = 'Nueva IPS';
-  new bootstrap.Modal(document.getElementById('modalIps')).show();
+
+  document.getElementById('tituloModalIps').textContent =
+    'Nueva IPS';
+
+  new bootstrap.Modal(
+    document.getElementById('modalIps')
+  ).show();
 }
 
-function editarIps(ips) {
-  document.getElementById('tituloModalIps').textContent = 'Editar IPS';
-  document.getElementById('id_ips').value = ips.id_ips;
-  document.getElementById('nombre_ips').value = ips.nombre || '';
-  document.getElementById('razon_social_ips').value = ips.razon_social || '';
-  document.getElementById('nit_ips').value = ips.nit || '';
-  document.getElementById('codigo_habilitacion_ips').value = ips.codigo_habilitacion || '';
-  document.getElementById('direccion_ips').value = ips.direccion || '';
-  document.getElementById('telefono_ips').value = ips.telefono || '';
-  document.getElementById('correo_ips').value = ips.correo || '';
-  new bootstrap.Modal(document.getElementById('modalIps')).show();
+function limpiarFormularioIps() {
+
+  document.getElementById('id_ips').value = '';
+
+  document.getElementById('nombre_ips').value = '';
+
+  document.getElementById('razon_social_ips').value = '';
+
+  document.getElementById('nit_ips').value = '';
+
+  document.getElementById('codigo_habilitacion_ips').value = '';
+
+  document.getElementById('direccion_ips').value = '';
+
+  document.getElementById('telefono_ips').value = '';
+
+  document.getElementById('correo_ips').value = '';
+
+  const mensaje = document.getElementById('mensajeIps');
+
+  mensaje.className = 'alert d-none mt-3';
+
+  mensaje.textContent = '';
+}
+
+function mostrarMensajeIps(texto, tipo) {
+
+  const mensaje = document.getElementById('mensajeIps');
+
+  mensaje.className = `alert alert-${tipo} mt-3`;
+
+  mensaje.textContent = texto;
 }
 
 async function guardarIps() {
+
   const id = document.getElementById('id_ips').value;
 
   const datos = {
@@ -1047,88 +1056,94 @@ async function guardarIps() {
   };
 
   if (!datos.nombre || !datos.nit) {
-    mostrarMensajeIps('Nombre y NIT son obligatorios', 'danger');
+
+    mostrarMensajeIps(
+      'Nombre y NIT son obligatorios',
+      'danger'
+    );
+
     return;
   }
 
-  const url = id ? `${API_BASE}/ips/${id}` : `${API_BASE}/ips`;
-  const metodo = id ? 'PUT' : 'POST';
-
   try {
-    const res = await fetch(url, {
-      method: metodo,
-      headers: headersAuth(),
-      body: JSON.stringify(datos)
-    });
 
-    if (validarRespuestaNoAutorizada(res)) return;
+    let respuesta;
 
-    const data = await res.json();
+    if (id) {
 
-    if (!data.ok) {
-      mostrarMensajeIps(data.mensaje || 'Error al guardar IPS', 'danger');
+      respuesta = await actualizarIpsApi(id, datos);
+
+    } else {
+
+      respuesta = await crearIpsApi(datos);
+
+    }
+
+    if (!respuesta.ok) {
+
+      mostrarMensajeIps(
+        respuesta.mensaje || 'Error guardando IPS',
+        'danger'
+      );
+
       return;
     }
 
-    mostrarMensajeIps(data.mensaje || 'IPS guardada correctamente', 'success');
+    mostrarMensajeIps(
+      respuesta.mensaje || 'IPS guardada correctamente',
+      'success'
+    );
 
     setTimeout(() => {
-      bootstrap.Modal.getInstance(document.getElementById('modalIps')).hide();
+
+      bootstrap.Modal
+        .getInstance(document.getElementById('modalIps'))
+        .hide();
+
       cargarIps();
+
     }, 700);
 
   } catch (error) {
+
     console.error(error);
-    mostrarMensajeIps('Error de conexión con el backend', 'danger');
+
+    mostrarMensajeIps(
+      'Error conectando backend',
+      'danger'
+    );
   }
 }
 
-async function eliminarIps(id) {
-  if (!confirm('¿Seguro que deseas eliminar/inactivar esta IPS?')) return;
+async function eliminarIpsVista(id) {
+
+  if (!confirm('¿Deseas inactivar esta IPS?')) {
+    return;
+  }
 
   try {
-    const res = await fetch(`${API_BASE}/ips/${id}`, {
-      method: 'DELETE',
-      headers: headersAuth()
-    });
 
-    if (validarRespuestaNoAutorizada(res)) return;
+    const respuesta = await eliminarIpsApi(id);
 
-    const data = await res.json();
+    if (!respuesta.ok) {
 
-    if (!data.ok) {
-      alert(data.mensaje || 'Error al eliminar IPS');
+      alert(
+        respuesta.mensaje || 'Error eliminando IPS'
+      );
+
       return;
     }
 
     cargarIps();
 
   } catch (error) {
+
     console.error(error);
-    alert('Error de conexión con el backend');
+
+    alert('Error conectando backend');
   }
-}
+}========================
 
-function limpiarFormularioIps() {
-  document.getElementById('id_ips').value = '';
-  document.getElementById('nombre_ips').value = '';
-  document.getElementById('razon_social_ips').value = '';
-  document.getElementById('nit_ips').value = '';
-  document.getElementById('codigo_habilitacion_ips').value = '';
-  document.getElementById('direccion_ips').value = '';
-  document.getElementById('telefono_ips').value = '';
-  document.getElementById('correo_ips').value = '';
-
-  const mensaje = document.getElementById('mensajeIps');
-  mensaje.className = 'alert d-none mt-3';
-  mensaje.textContent = '';
-}
-
-function mostrarMensajeIps(texto, tipo) {
-  const mensaje = document.getElementById('mensajeIps');
-  mensaje.className = `alert alert-${tipo} mt-3`;
-  mensaje.textContent = texto;
-}
 
 // =========================
 // SEDES
