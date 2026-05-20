@@ -11,12 +11,12 @@ const {
   eliminarIps
 } = require('../controllers/ips.controller');
 
-const validarToken = require('../middlewares/authMiddleware');
+const { validarJWT } = require('../middlewares/authMiddleware');
 
-router.get('/', validarToken, listarIps);
-router.post('/', validarToken, crearIps);
-router.put('/:id', validarToken, actualizarIps);
-router.delete('/:id', validarToken, eliminarIps);
+router.get('/', validarJWT, listarIps);
+router.post('/', validarJWT, crearIps);
+router.put('/:id', validarJWT, actualizarIps);
+router.delete('/:id', validarJWT, eliminarIps);
 
 router.get('/health', async (req, res) => {
   try {
