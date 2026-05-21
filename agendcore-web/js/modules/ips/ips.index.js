@@ -360,8 +360,7 @@ let modalEliminarIps = null;
 
 function eliminarIpsVista(id){
 
-  console.log('IPS eliminar:', id);
-
+	console.log('IPS eliminar:', id);
   ipsEliminar = id;
 
   modalEliminarIps =
@@ -376,15 +375,17 @@ function eliminarIpsVista(id){
 
 window.eliminarIpsVista = eliminarIpsVista;
 
+document.getElementById(
+    'btnConfirmarEliminarIps'
+  )
+  .addEventListener(
+    'click',
+    confirmarEliminarIps
+  );
+
 async function confirmarEliminarIps(){
 
-  console.log('Confirmando eliminación:',ipsEliminar);
-  
-  if (ipsEliminar === null) return;
-
   try {
-
-    modalEliminarIps.hide();
 
     mostrarLoader(
       'Inactivando IPS...'
@@ -408,13 +409,12 @@ async function confirmarEliminarIps(){
       return;
     }
 
+    modalEliminarIps.hide();
+
     mostrarToast(
-      respuesta.mensaje ||
       'IPS inactivada correctamente',
       'success'
     );
-
-    ipsEliminar = null;
 
     await cargarIps();
 
@@ -425,13 +425,11 @@ async function confirmarEliminarIps(){
     ocultarLoader();
 
     mostrarToast(
-      'Error al inactivar IPS',
+      'Error al eliminar IPS',
       'danger'
     );
   }
 }
-
-window.confirmarEliminarIps = confirmarEliminarIps;
 
 function inicializarBusquedaIps() {
 
