@@ -178,6 +178,7 @@ let modalIps = null;
 
 function abrirModalNuevaIps(){
 
+  editandoIps = null;
   document.getElementById('formIps').reset();
 
   document.querySelector(
@@ -243,7 +244,21 @@ async function guardarIps() {
 	}
 	
 	mostrarLoader('Guardando IPS...');
-    const respuesta = await crearIpsApi(datos);
+    
+	let respuesta;
+
+	if (editandoIps) {
+
+	  respuesta = await actualizarIpsApi(
+		editandoIps,
+		datos
+	  );
+
+	}else {
+
+	  respuesta = await crearIpsApi(datos);
+
+	}
 
     ocultarLoader();
 
@@ -258,11 +273,15 @@ async function guardarIps() {
     }
 
     modalIps.hide();
+	editandoIps = null;
 
     mostrarToast(
-      'IPS creada correctamente',
-      'success'
-    );
+	  respuesta.mensaje ||
+	  (editandoIps
+		? 'IPS actualizada correctamente'
+		: 'IPS creada correctamente'),
+	  'success'
+	);
 
     await cargarIps();
 
@@ -281,7 +300,56 @@ async function guardarIps() {
 
 window.guardarIps = guardarIps;
 
+/* =========================================================
+   EDITAR IPS
+========================================================= */
 
+let editandoIps = null;
+
+function editarIps(id) {
+
+  const ips = listaIps.find(x => x.id_ips == id);
+
+  if (!ips) {
+    mostrarToast('IPS no encontrada', 'danger');
+    return;
+  }
+
+  editandoIps = id;
+
+  document.querySelector(
+    '#modalIps .modal-title'
+  ).textContent = 'Editar IPS';
+
+  document.getElementById('nombreIps').value =
+    ips.nombre || '';
+
+  document.getElementById('razonSocialIps').value =
+    ips.razon_social || '';
+
+  document.getElementById('nitIps').value =
+    ips.nit || '';
+
+  document.getElementById('codigoHabilitacionIps').value =
+    ips.codigo_habilitacion || '';
+
+  document.getElementById('telefonoIps').value =
+    ips.telefono || '';
+
+  document.getElementById('correoIps').value =
+    ips.correo || '';
+
+  document.getElementById('direccionIps').value =
+    ips.direccion || '';
+
+  modalIps = new bootstrap.Modal(
+    document.getElementById('modalIps')
+  );
+
+  modalIps.show();
+}
+
+window.editarIps = editarIps;
 
 
 function inicializarBusquedaIps() {
