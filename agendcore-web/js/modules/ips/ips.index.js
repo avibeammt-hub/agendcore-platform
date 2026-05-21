@@ -355,61 +355,24 @@ window.editarIps = editarIps;
    ELIMINAR IPS
 ========================================================= */
 
-async function confirmarEliminarIps(){
+let ipsEliminar = null;
+let modalEliminarIps = null;
 
-  if (!ipsEliminar) return;
+function eliminarIpsVista(id){
 
-  try {
+  ipsEliminar = id;
 
-    modalEliminarIps.hide();
-
-    mostrarLoader(
-      'Inactivando IPS...'
+  modalEliminarIps =
+    new bootstrap.Modal(
+      document.getElementById(
+        'modalEliminarIps'
+      )
     );
 
-    const respuesta =
-      await eliminarIpsApi(
-        ipsEliminar
-      );
-
-    ocultarLoader();
-
-    if (!respuesta.ok){
-
-      mostrarToast(
-        respuesta.mensaje ||
-        'No fue posible inactivar IPS',
-        'danger'
-      );
-
-      return;
-    }
-
-    mostrarToast(
-      respuesta.mensaje ||
-      'IPS inactivada correctamente',
-      'success'
-    );
-
-    ipsEliminar = null;
-
-    await cargarIps();
-
-  } catch(error){
-
-    console.error(error);
-
-    ocultarLoader();
-
-    mostrarToast(
-      'Error al inactivar IPS',
-      'danger'
-    );
-  }
+  modalEliminarIps.show();
 }
 
-window.confirmarEliminarIps =
-  confirmarEliminarIps;
+window.eliminarIpsVista = eliminarIpsVista;
 
 
 function inicializarBusquedaIps() {
