@@ -193,6 +193,82 @@ function abrirModalNuevaIps(){
 
 window.abrirModalNuevaIps = abrirModalNuevaIps;
 
+/* =========================================================
+   GUARDAR IPS
+========================================================= */
+
+async function guardarIps() {
+
+  try {
+
+    mostrarLoader('Guardando IPS...');
+
+    const datos = {
+
+      nombre:
+        document.getElementById('nombreIps').value,
+
+      razon_social:
+        document.getElementById('razonSocialIps').value,
+
+      nit:
+        document.getElementById('nitIps').value,
+
+      codigo_habilitacion:
+        document.getElementById('codigoHabilitacionIps').value,
+
+      telefono:
+        document.getElementById('telefonoIps').value,
+
+      correo:
+        document.getElementById('correoIps').value,
+
+      direccion:
+        document.getElementById('direccionIps').value
+
+    };
+
+    const respuesta = await crearIpsApi(datos);
+
+    ocultarLoader();
+
+    if (!respuesta.ok) {
+
+      mostrarToast(
+        respuesta.mensaje || 'Error al crear IPS',
+        'danger'
+      );
+
+      return;
+    }
+
+    modalIps.hide();
+
+    mostrarToast(
+      'IPS creada correctamente',
+      'success'
+    );
+
+    await cargarIps();
+
+  } catch (error) {
+
+    console.error(error);
+
+    ocultarLoader();
+
+    mostrarToast(
+      'Error al guardar IPS',
+      'danger'
+    );
+  }
+}
+
+window.guardarIps = guardarIps;
+
+
+
+
 function inicializarBusquedaIps() {
 
   const input = document.getElementById('buscarIps');
