@@ -309,12 +309,25 @@ async function cargarModales(){
   const contenedor =
     document.getElementById('modalesContainer');
 
-  const respuesta = await fetch(
-    './views/modals/ips.modal.html'
-  );
+  const [
+    modalIps,
+    modalDelete
+  ] = await Promise.all([
+
+    fetch('./views/modals/ips.modal.html'),
+
+    fetch('./views/modals/ips.delete.html')
+
+  ]);
+
+  const htmlIps =
+    await modalIps.text();
+
+  const htmlDelete =
+    await modalDelete.text();
 
   contenedor.innerHTML =
-    await respuesta.text();
+    htmlIps + htmlDelete;
 }
 
 // =========================

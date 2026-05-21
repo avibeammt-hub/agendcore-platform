@@ -1035,3 +1035,37 @@ body{
 
   color:#64748b;
 }
+
+.delete-icon{
+  width:90px;
+  height:90px;
+  margin:auto;
+  border-radius:28px;
+  background:linear-gradient(
+    135deg,
+    #ff6b6b,
+    #ee5253
+  );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  color:white;
+  box-shadow:0 15px 40px rgba(238,82,83,.35);
+}
+
+.btn-danger{
+  border:none;
+  border-radius:18px;
+  padding:14px 28px;
+  font-weight:600;
+  background:linear-gradient(
+    135deg,
+    #ff6b6b,
+    #ee5253
+  );
+}
+
+.btn-danger:hover{
+  transform:translateY(-2px);
+}
