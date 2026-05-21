@@ -170,6 +170,29 @@ function renderModuloIps(datos) {
   inicializarBusquedaIps();
 }
 
+/* =========================================================
+   MODAL IPS
+========================================================= */
+
+let modalIps = null;
+
+function abrirModalNuevaIps(){
+
+  document.getElementById('formIps').reset();
+
+  document.querySelector(
+    '#modalIps .modal-title'
+  ).textContent = 'Nueva IPS';
+
+  modalIps = new bootstrap.Modal(
+    document.getElementById('modalIps')
+  );
+
+  modalIps.show();
+}
+
+window.abrirModalNuevaIps = abrirModalNuevaIps;
+
 function inicializarBusquedaIps() {
 
   const input = document.getElementById('buscarIps');
