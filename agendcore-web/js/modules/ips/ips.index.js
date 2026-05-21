@@ -374,6 +374,61 @@ function eliminarIpsVista(id){
 
 window.eliminarIpsVista = eliminarIpsVista;
 
+async function confirmarEliminarIps(){
+
+  if (!ipsEliminar) return;
+
+  try {
+
+    modalEliminarIps.hide();
+
+    mostrarLoader(
+      'Inactivando IPS...'
+    );
+
+    const respuesta =
+      await eliminarIpsApi(
+        ipsEliminar
+      );
+
+    ocultarLoader();
+
+    if (!respuesta.ok){
+
+      mostrarToast(
+        respuesta.mensaje ||
+        'No fue posible inactivar IPS',
+        'danger'
+      );
+
+      return;
+    }
+
+    mostrarToast(
+      respuesta.mensaje ||
+      'IPS inactivada correctamente',
+      'success'
+    );
+
+    ipsEliminar = null;
+
+    await cargarIps();
+
+  } catch(error){
+
+    console.error(error);
+
+    ocultarLoader();
+
+    mostrarToast(
+      'Error al inactivar IPS',
+      'danger'
+    );
+  }
+}
+
+window.confirmarEliminarIps =
+  confirmarEliminarIps;
 
 function inicializarBusquedaIps() {
 
