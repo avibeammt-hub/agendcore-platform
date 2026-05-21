@@ -333,12 +333,10 @@ function cerrarSesion() {
 // INICIO APP
 // =========================
 
-document.addEventListener('DOMContentLoaded', () => {
-	
-	
-	
-	cargarVista('inicio');
-	await cargarModales();
+document.addEventListener('DOMContentLoaded', async () => {
+
+    await cargarModales();
+    cargarVista('inicio');
 
 });
 
