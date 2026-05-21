@@ -201,7 +201,7 @@ async function guardarIps() {
 
   try {
 
-    mostrarLoader('Guardando IPS...');
+    
 
     const datos = {
 
@@ -231,16 +231,18 @@ async function guardarIps() {
 	/* VALIDACIONES */
 
 	if (!datos.nombre) {
+	  ocultarLoader();
 	  mostrarToast('Ingrese nombre IPS', 'warning');
 	  return;
 	}
 
 	if (!datos.nit) {
+	  ocultarLoader();
 	  mostrarToast('Ingrese NIT', 'warning');
 	  return;
 	}
-
-
+	
+	mostrarLoader('Guardando IPS...');
     const respuesta = await crearIpsApi(datos);
 
     ocultarLoader();
