@@ -105,13 +105,32 @@ const crearIps = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error al crear IPS:', error);
 
-    res.status(500).json({
-      ok: false,
-      mensaje: 'Error al crear IPS'
-    });
-  }
+	  console.error('Error al crear IPS:', error);
+
+	  // =========================================
+	  // NIT DUPLICADO
+	  // =========================================
+
+	  if (error.code === '23505') {
+
+		return res.status(400).json({
+		  ok: false,
+		  mensaje: 'El NIT ya se encuentra registrado'
+		});
+
+	  }
+
+	  // =========================================
+	  // ERROR GENERAL
+	  // =========================================
+
+	  res.status(500).json({
+		ok: false,
+		mensaje: 'Error interno al crear IPS'
+	  });
+
+	}
 };
 
 const actualizarIps = async (req, res) => {
