@@ -80,7 +80,7 @@ const crearIps = async (req, res) => {
     const ipsCreada = resultado.rows[0];
 
     // 2. Enviar a FHIR
-    const respuestaFhir = await crearOrganizacionFhir(ipsCreada);
+    const respuestaFhir = await crearOrganizationFhir(ipsCreada);
 
     // 3. Guardar ID FHIR
     await baseDatos.query(
@@ -175,13 +175,40 @@ const actualizarIps = async (req, res) => {
         id
       ]
     );
-
-    if (resultado.rows.length === 0) {
+	
+	if (resultado.rows.length === 0) {
       return res.status(404).json({
         ok: false,
         mensaje: 'IPS no encontrada'
       });
     }
+	
+	/* =========================================
+   ACTUALIZAR FHIR
+========================================= */
+
+	if (resultado.rows[0].fhir_id) {
+
+	  const respuestaFhir =
+		await actualizarOrganizationFhir(
+		  resultado.rows[0]
+		);
+
+	  await baseDatos.query(
+		`
+		UPDATE ips
+		SET fhir_version_id = $1,
+			fecha_sincronizacion_fhir = NOW()
+		WHERE id_ips = $2
+		`,
+		[
+		  respuestaFhir.meta?.versionId,
+		  resultado.rows[0].id_ips
+		]
+	  );
+	}
+
+
 
     res.json({
       ok: true,

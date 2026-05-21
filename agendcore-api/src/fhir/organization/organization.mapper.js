@@ -3,7 +3,7 @@ const mapOrganization = (ips) => {
   return {
 
     resourceType: 'Organization',
-
+	id: ips.fhir_id || undefined,
     active: ips.activo ?? true,
 
     identifier: [
@@ -80,4 +80,8 @@ const mapOrganization = (ips) => {
     ]
 
   };
+};
+
+module.exports = {
+  mapOrganization
 };
