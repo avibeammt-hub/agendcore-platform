@@ -5,9 +5,50 @@ async function cargarIps() {
   try {
 
     mostrarLoader('Cargando IPS...');
+	
+	document.getElementById('contenido').innerHTML = `
+
+	  <div class="vista">
+
+		<div class="d-flex justify-content-between mb-4">
+
+		  <div>
+			<div class="skeleton mb-3" style="width:260px;height:40px"></div>
+			<div class="skeleton" style="width:380px;height:20px"></div>
+		  </div>
+
+		  <div class="skeleton" style="width:180px;height:56px"></div>
+
+		</div>
+
+		<div class="row mb-4">
+
+		  <div class="col-md-4">
+			<div class="skeleton" style="height:120px"></div>
+		  </div>
+
+		  <div class="col-md-4">
+			<div class="skeleton" style="height:120px"></div>
+		  </div>
+
+		  <div class="col-md-4">
+			<div class="skeleton" style="height:120px"></div>
+		  </div>
+
+		</div>
+
+		<div class="skeleton mb-3" style="height:55px"></div>
+
+		<div class="skeleton mb-3" style="height:70px"></div>
+		<div class="skeleton mb-3" style="height:70px"></div>
+		<div class="skeleton mb-3" style="height:70px"></div>
+		<div class="skeleton mb-3" style="height:70px"></div>
+
+	  </div>
+	`;
 
     const respuesta = await listarIpsApi();
-
+	
 	listaIps = respuesta.datos || [];
 
 	renderModuloIps(listaIps);

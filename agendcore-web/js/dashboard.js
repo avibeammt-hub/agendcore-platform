@@ -124,55 +124,73 @@ if (menuActivo) {
   // SEDES
   // =========================
 
-  if (vista === 'sedes') {
+	if (vista === 'sedes') {
 
-    titulo.textContent = 'Sedes';
+	  titulo.textContent = 'Sedes';
 
-    subtitulo.textContent =
-      'Administración de sedes';
+	  subtitulo.textContent =
+		'Administración de sedes';
 
-    contenido.innerHTML = `
-      <div class="alert alert-info rounded-4">
-        Módulo de sedes en construcción
-      </div>
-    `;
-  }
+	  contenido.innerHTML = `
+		<div class="vista">
+		  <div class="empty-module">
+			<i class="bi bi-geo-alt"></i>
+			<h3>Módulo de sedes</h3>
+			<p>
+			  Próximamente disponible
+			</p>
+		  </div>
+		</div>
+	  `;
+	}
 
   // =========================
   // ESPECIALIDADES
   // =========================
 
-  if (vista === 'especialidades') {
+	if (vista === 'especialidades') {
 
-    titulo.textContent = 'Especialidades';
+	  titulo.textContent = 'Especialidades';
 
-    subtitulo.textContent =
-      'Administración de especialidades';
+	  subtitulo.textContent =
+		'Administración de especialidades';
 
-    contenido.innerHTML = `
-      <div class="alert alert-info rounded-4">
-        Módulo de especialidades en construcción
-      </div>
-    `;
-  }
+	  contenido.innerHTML = `
+		<div class="vista">
+		  <div class="empty-module">
+			<i class="bi bi-heart-pulse"></i>
+			<h3>Módulo de especialidades</h3>
+			<p>
+			  Próximamente disponible
+			</p>
+		  </div>
+		</div>
+	  `;
+	}
 
   // =========================
   // SERVICIOS
   // =========================
 
-  if (vista === 'servicios') {
+	if (vista === 'servicios') {
 
-    titulo.textContent = 'Servicios';
+	  titulo.textContent = 'Servicios';
 
-    subtitulo.textContent =
-      'Administración de servicios';
+	  subtitulo.textContent =
+		'Administración de servicios';
 
-    contenido.innerHTML = `
-      <div class="alert alert-info rounded-4">
-        Módulo de servicios en construcción
-      </div>
-    `;
-  }
+	  contenido.innerHTML = `
+		<div class="vista">
+		  <div class="empty-module">
+			<i class="bi bi-clipboard2-pulse"></i>
+			<h3>Módulo de servicios</h3>
+			<p>
+			  Próximamente disponible
+			</p>
+		  </div>
+		</div>
+	  `;
+	}
 
   // =========================
   // PROFESIONALES
@@ -186,9 +204,9 @@ if (menuActivo) {
       'Administración de profesionales';
 
     contenido.innerHTML = `
-      <div class="alert alert-info rounded-4">
-        Módulo de profesionales en construcción
-      </div>
+      <div class="vista">
+		${html}
+	  </div>
     `;
   }
 
@@ -204,9 +222,9 @@ if (menuActivo) {
       'Relación profesional IPS sede servicio';
 
     contenido.innerHTML = `
-      <div class="alert alert-info rounded-4">
-        Módulo de asignaciones en construcción
-      </div>
+      <div class="vista">
+		${html}
+	  </div>
     `;
   }
 
@@ -222,9 +240,9 @@ if (menuActivo) {
       'FHIR Schedule mensual';
 
     contenido.innerHTML = `
-      <div class="alert alert-info rounded-4">
-        Módulo de agendas en construcción
-      </div>
+      <div class="vista">
+		${html}
+	  </div>
     `;
   }
 }
@@ -303,3 +321,15 @@ document.addEventListener('DOMContentLoaded', () => {
   cargarVista('inicio');
 
 });
+
+// =========================
+// TOOGLE
+// =========================
+
+function toggleSidebar(){
+
+  document
+    .querySelector('.sidebar')
+    .classList
+    .toggle('active');
+}
