@@ -360,6 +360,8 @@ let modalEliminarIps = null;
 
 function eliminarIpsVista(id){
 
+  console.log('IPS eliminar:', id);
+
   ipsEliminar = id;
 
   modalEliminarIps =
@@ -376,7 +378,9 @@ window.eliminarIpsVista = eliminarIpsVista;
 
 async function confirmarEliminarIps(){
 
-  if (!ipsEliminar) return;
+  console.log('Confirmando eliminación:',ipsEliminar);
+  
+  if (ipsEliminar === null) return;
 
   try {
 
@@ -427,8 +431,7 @@ async function confirmarEliminarIps(){
   }
 }
 
-window.confirmarEliminarIps =
-  confirmarEliminarIps;
+window.confirmarEliminarIps = confirmarEliminarIps;
 
 function inicializarBusquedaIps() {
 
