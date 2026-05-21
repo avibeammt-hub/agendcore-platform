@@ -245,6 +245,26 @@ const eliminarIps = async (req, res) => {
         mensaje: 'IPS no encontrada'
       });
     }
+	
+	/* =========================================
+	   SINCRONIZAR FHIR
+	========================================= */
+
+	if (resultado.rows[0].fhir_id) {
+
+	  await actualizarOrganizationFhir(
+		resultado.rows[0]
+	  );
+
+	  await baseDatos.query(
+		`
+		UPDATE ips
+		SET fecha_sincronizacion_fhir = NOW()
+		WHERE id_ips = $1
+		`,
+		[resultado.rows[0].id_ips]
+	  );
+	}
 
     res.json({
       ok: true,
