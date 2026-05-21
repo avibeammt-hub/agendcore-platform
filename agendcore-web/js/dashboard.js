@@ -336,8 +336,9 @@ function cerrarSesion() {
 document.addEventListener('DOMContentLoaded', () => {
 	
 	
-	await cargarModales();
+	
 	cargarVista('inicio');
+	await cargarModales();
 
 });
 
