@@ -227,6 +227,19 @@ async function guardarIps() {
         document.getElementById('direccionIps').value
 
     };
+	
+	/* VALIDACIONES */
+
+	if (!datos.nombre) {
+	  mostrarToast('Ingrese nombre IPS', 'warning');
+	  return;
+	}
+
+	if (!datos.nit) {
+	  mostrarToast('Ingrese NIT', 'warning');
+	  return;
+	}
+
 
     const respuesta = await crearIpsApi(datos);
 
