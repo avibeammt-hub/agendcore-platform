@@ -3,35 +3,6 @@ require('dotenv').config();
 
 const URL_FHIR = process.env.FHIR_BASE_URL;
 
-/**
- * Crear Organization (IPS o aseguradora)
- */
-const crearOrganizacionFhir = async (ips) => {
-  try {
-    const recurso = {
-      resourceType: 'Organization',
-      active: true,
-      name: ips.nombre,
-      identifier: [
-        {
-          system: 'https://acme.com/ips/nit',
-          value: ips.nit
-        }
-      ]
-    };
-
-    const respuesta = await fhirClient.post(
-	  '/Organization',
-	  recurso
-	);
-
-    return respuesta.data;
-
-  } catch (error) {
-    console.error('Error FHIR Organization:', error.response?.data || error.message);
-    throw error;
-  }
-};
 
 /**
  * Crear Location (Sede)

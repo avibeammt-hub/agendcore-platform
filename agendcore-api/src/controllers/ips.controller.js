@@ -1,5 +1,8 @@
 const baseDatos = require('../config/db');
-const { crearOrganizacionFhir } = require('../servicios/servicioFhir');
+const {
+  crearOrganizationFhir,
+  actualizarOrganizationFhir
+} = require('../fhir/organization/organization.service');
 
 const listarIps = async (req, res) => {
   try {
