@@ -301,6 +301,23 @@ async function cargarResumenInicio() {
 }
 
 // =========================
+// MODALES
+// =========================
+
+async function cargarModales(){
+
+  const contenedor =
+    document.getElementById('modalesContainer');
+
+  const respuesta = await fetch(
+    './views/modals/ips.modal.html'
+  );
+
+  contenedor.innerHTML =
+    await respuesta.text();
+}
+
+// =========================
 // CERRAR SESIÓN
 // =========================
 
@@ -317,8 +334,10 @@ function cerrarSesion() {
 // =========================
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  cargarVista('inicio');
+	
+	
+	await cargarModales();
+	cargarVista('inicio');
 
 });
 

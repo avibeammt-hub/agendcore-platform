@@ -1,0 +1,167 @@
+<div class="modal fade" id="modalIps" tabindex="-1">
+
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h4 class="modal-title fw-bold mb-1">
+            Nueva IPS
+          </h4>
+
+          <p class="mb-0 opacity-75">
+            Registro institucional interoperable
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+        ></button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <form id="formIps">
+
+          <div class="row g-4">
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Nombre IPS *
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="nombreIps"
+                required
+              >
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Razón social
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="razonSocialIps"
+              >
+
+            </div>
+
+            <div class="col-md-4">
+
+              <label class="form-label">
+                NIT *
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="nitIps"
+                required
+              >
+
+            </div>
+
+            <div class="col-md-4">
+
+              <label class="form-label">
+                Código habilitación
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="codigoHabilitacionIps"
+              >
+
+            </div>
+
+            <div class="col-md-4">
+
+              <label class="form-label">
+                Teléfono
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="telefonoIps"
+              >
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Correo
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                id="correoIps"
+              >
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Dirección
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="direccionIps"
+              >
+
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-light"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+
+        <button
+          class="btn-save"
+          onclick="guardarIps()"
+          id="btnGuardarIps"
+        >
+
+          <i class="bi bi-check-circle"></i>
+          Guardar IPS
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
