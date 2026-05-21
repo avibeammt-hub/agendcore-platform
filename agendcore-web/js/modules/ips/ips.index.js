@@ -351,6 +351,61 @@ function editarIps(id) {
 
 window.editarIps = editarIps;
 
+/* =========================================================
+   ELIMINAR IPS
+========================================================= */
+
+async function eliminarIpsVista(id) {
+
+  const confirmar = confirm(
+    '¿Desea inactivar esta IPS?'
+  );
+
+  if (!confirmar) return;
+
+  try {
+
+    mostrarLoader('Inactivando IPS...');
+
+    const respuesta =
+      await eliminarIpsApi(id);
+
+    ocultarLoader();
+
+    if (!respuesta.ok) {
+
+      mostrarToast(
+        respuesta.mensaje ||
+        'No fue posible eliminar IPS',
+        'danger'
+      );
+
+      return;
+    }
+
+    mostrarToast(
+      respuesta.mensaje ||
+      'IPS inactivada correctamente',
+      'success'
+    );
+
+    await cargarIps();
+
+  } catch (error) {
+
+    console.error(error);
+
+    ocultarLoader();
+
+    mostrarToast(
+      'Error al eliminar IPS',
+      'danger'
+    );
+  }
+}
+
+window.eliminarIpsVista = eliminarIpsVista;
+
 
 function inicializarBusquedaIps() {
 
