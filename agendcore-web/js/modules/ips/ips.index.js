@@ -369,6 +369,13 @@ function eliminarIpsVista(id){
         'modalEliminarIps'
       )
     );
+	
+	const btn =
+    document.getElementById(
+      'btnConfirmarEliminarIps'
+    );
+
+  btn.onclick = confirmarEliminarIps;
 
   modalEliminarIps.show();
 }
@@ -423,7 +430,6 @@ async function confirmarEliminarIps(){
   }
 }
 
-window.confirmarEliminarIps = confirmarEliminarIps;
 
 function inicializarBusquedaIps() {
 
