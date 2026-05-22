@@ -124,25 +124,15 @@ if (menuActivo) {
   // SEDES
   // =========================
 
-	if (vista === 'sedes') {
+if (vista === 'sedes') {
 
-	  titulo.textContent = 'Sedes';
+  titulo.textContent = 'Sedes';
 
-	  subtitulo.textContent =
-		'Administración de sedes';
+  subtitulo.textContent =
+    'Administración interoperable de sedes';
 
-	  contenido.innerHTML = `
-		<div class="vista">
-		  <div class="empty-module">
-			<i class="bi bi-geo-alt"></i>
-			<h3>Módulo de sedes</h3>
-			<p>
-			  Próximamente disponible
-			</p>
-		  </div>
-		</div>
-	  `;
-	}
+  cargarSedes();
+}
 
   // =========================
   // ESPECIALIDADES
@@ -307,28 +297,39 @@ async function cargarResumenInicio() {
 async function cargarModales(){
 
   const contenedor =
-    document.getElementById('modalesContainer');
+    document.getElementById(
+      'modalesContainer'
+    );
 
   const [
     modalIps,
-    modalDelete
+    modalDeleteIps,
+    modalSedes,
+    modalDeleteSedes
   ] = await Promise.all([
 
     fetch('./views/modals/ips.modal.html'),
     fetch('./views/modals/ips.delete.html'),
-	fetch('./views/modals/sedes.modal.html'),
-	fetch('./views/modals/sedes.delete.html')
+    fetch('./views/modals/sedes.modal.html'),
+    fetch('./views/modals/sedes.delete.html')
 
   ]);
 
   const htmlIps =
     await modalIps.text();
 
-  const htmlDelete =
-    await modalDelete.text();
+  const htmlDeleteIps =
+    await modalDeleteIps.text();
+
+  const htmlSedes =
+    await modalSedes.text();
+
+  const htmlDeleteSedes =
+    await modalDeleteSedes.text();
 
   contenedor.innerHTML =
-    htmlIps + htmlDelete + htmlSedes;
+
+    htmlIps + htmlDeleteIps + htmlSedes + htmlDeleteSedes;
 }
 
 // =========================
