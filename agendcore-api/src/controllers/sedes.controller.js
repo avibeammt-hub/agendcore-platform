@@ -1,5 +1,8 @@
 const baseDatos = require('../config/db');
-const { crearLocationFhir } = require('../servicios/servicioFhir');
+const {
+  crearLocationFhir,
+  actualizarLocationFhir
+} = require('../fhir/location/location.service');
 
 const crearSede = async (req, res) => {
   const {
@@ -56,7 +59,7 @@ const crearSede = async (req, res) => {
     // 3. Enviar a FHIR
     const fhir = await crearLocationFhir({
       ...sede,
-      fhir_id_ips: ipsData.fhir_id
+      ips_fhir_id: ipsData.fhir_id
     });
 
     // 4. Guardar ID FHIR
@@ -150,6 +153,46 @@ const actualizarSede = async (req, res) => {
         mensaje: 'Sede no encontrada'
       });
     }
+	
+	/* =========================================
+	   ACTUALIZAR FHIR
+	========================================= */
+
+	if (resultado.rows[0].fhir_id) {
+
+	  const ips = await baseDatos.query(
+		`
+		SELECT fhir_id
+		FROM ips
+		WHERE id_ips = $1
+		`,
+		[resultado.rows[0].id_ips]
+	  );
+
+	  const respuestaFhir =
+		await actualizarLocationFhir({
+
+		  ...resultado.rows[0],
+
+		  ips_fhir_id:
+			ips.rows[0]?.fhir_id
+
+		});
+
+	  await baseDatos.query(
+		`
+		UPDATE sedes
+		SET
+		  fhir_version_id = $1,
+		  fecha_sincronizacion_fhir = NOW()
+		WHERE id_sede = $2
+		`,
+		[
+		  respuestaFhir.meta?.versionId,
+		  resultado.rows[0].id_sede
+		]
+	  );
+	}
 
     res.json({
       ok: true,
@@ -187,6 +230,40 @@ const eliminarSede = async (req, res) => {
         mensaje: 'Sede no encontrada'
       });
     }
+	
+	/* =========================================
+	   INACTIVAR FHIR
+	========================================= */
+
+	if (resultado.rows[0].fhir_id) {
+
+	  const ips = await baseDatos.query(
+		`
+		SELECT fhir_id
+		FROM ips
+		WHERE id_ips = $1
+		`,
+		[resultado.rows[0].id_ips]
+	  );
+
+	  await actualizarLocationFhir({
+
+		...resultado.rows[0],
+
+		ips_fhir_id:
+		  ips.rows[0]?.fhir_id
+
+	  });
+
+	  await baseDatos.query(
+		`
+		UPDATE sedes
+		SET fecha_sincronizacion_fhir = NOW()
+		WHERE id_sede = $1
+		`,
+		[resultado.rows[0].id_sede]
+	  );
+	}
 
     res.json({
       ok: true,

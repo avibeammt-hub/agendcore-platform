@@ -315,8 +315,9 @@ async function cargarModales(){
   ] = await Promise.all([
 
     fetch('./views/modals/ips.modal.html'),
-
-    fetch('./views/modals/ips.delete.html')
+    fetch('./views/modals/ips.delete.html'),
+	fetch('./views/modals/sedes.modal.html'),
+	fetch('./views/modals/sedes.delete.html')
 
   ]);
 
@@ -327,7 +328,7 @@ async function cargarModales(){
     await modalDelete.text();
 
   contenedor.innerHTML =
-    htmlIps + htmlDelete;
+    htmlIps + htmlDelete + htmlSedes;
 }
 
 // =========================

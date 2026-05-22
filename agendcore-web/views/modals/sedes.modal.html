@@ -1,0 +1,134 @@
+<div
+  class="modal fade"
+  id="modalSede"
+  tabindex="-1">
+
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <div>
+
+          <h4 class="modal-title fw-bold mb-1">
+            Nueva Sede
+          </h4>
+
+          <p class="mb-0 opacity-75">
+            Registro interoperable FHIR
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal">
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <form id="formSede">
+
+          <div class="row g-4">
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Nombre sede *
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="nombreSede">
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Identificador
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="identificadorSede">
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Código habilitación
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="codigoHabilitacionSede">
+
+            </div>
+
+            <div class="col-md-6">
+
+              <label class="form-label">
+                Teléfono
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="telefonoSede">
+
+            </div>
+
+            <div class="col-md-12">
+
+              <label class="form-label">
+                Dirección
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="direccionSede">
+
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-light"
+          data-bs-dismiss="modal">
+
+          Cancelar
+
+        </button>
+
+        <button
+          class="btn-save"
+		  onclick="guardarSede()">
+
+          <i class="bi bi-check-circle"></i>
+          Guardar sede
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>	
