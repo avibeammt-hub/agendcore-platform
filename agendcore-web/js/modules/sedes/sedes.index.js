@@ -147,118 +147,27 @@ function renderModuloSedes(datos){
       </div>
 
     </div>
+	
+	
+    <div class="table-toolbar">
 
-    <div class="table-card">
+      <div class="search-box">
 
-      <div class="table-responsive">
+        <i class="bi bi-search"></i>
 
-        <table class="table table-hover align-middle">
-
-          <thead>
-
-            <tr>
-              <th>Sede</th>
-              <th>Identificador</th>
-              <th>Código</th>
-              <th>FHIR</th>
-              <th>Estado</th>
-              <th class="text-end">
-                Acciones
-              </th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            ${
-              datos.map(sede => `
-
-                <tr>
-
-                  <td>
-                    <strong>
-                      ${sede.nombre || ''}
-                    </strong>
-                  </td>
-
-                  <td>
-                    ${sede.identificador || ''}
-                  </td>
-
-                  <td>
-                    ${sede.codigo_habilitacion || ''}
-                  </td>
-
-                  <td>
-
-                    ${
-                      sede.fhir_id
-                      ? `
-                        <span class="badge bg-success">
-                          Sincronizado
-                        </span>
-                      `
-                      : `
-                        <span class="badge bg-warning text-dark">
-                          Pendiente
-                        </span>
-                      `
-                    }
-
-                  </td>
-
-                  <td>
-
-                    ${
-                      sede.activo
-                      ? `
-                        <span class="badge bg-success">
-                          Activa
-                        </span>
-                      `
-                      : `
-                        <span class="badge bg-danger">
-                          Inactiva
-                        </span>
-                      `
-                    }
-
-                  </td>
-
-                  <td class="text-end">
-
-                    <button
-                      class="btn-action edit"
-                      onclick="editarSede(${sede.id_sede})">
-
-                      <i class="bi bi-pencil-square"></i>
-
-                    </button>
-
-                    <button
-                      class="btn-action delete"
-                      onclick="eliminarSedeVista(${sede.id_sede})">
-
-                      <i class="bi bi-trash"></i>
-
-                    </button>
-
-                  </td>
-
-                </tr>
-
-              `).join('')
-            }
-
-          </tbody>
-
-        </table>
+        <input
+          type="text"
+          id="buscarSedes"
+          placeholder="Buscar Sedes..."
+        >
 
       </div>
 
     </div>
-  `;
+	
+	${renderTablaSedes(datos)}
+
+    `;
 }
 
 /* =========================================================
