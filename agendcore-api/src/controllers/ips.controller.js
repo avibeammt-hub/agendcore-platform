@@ -230,14 +230,24 @@ const eliminarIps = async (req, res) => {
 
   try {
     const resultado = await baseDatos.query(
-      `
-      UPDATE ips
-      SET activo = false
-      WHERE id_ips = $1
-      RETURNING *
-      `,
-      [id]
-    );
+	  `
+	  UPDATE ips
+	  SET activo = false
+	  WHERE id_ips = $1
+	  RETURNING
+		id_ips,
+		nombre,
+		razon_social,
+		nit,
+		codigo_habilitacion,
+		direccion,
+		telefono,
+		correo,
+		activo,
+		fhir_id
+	  `,
+	  [id]
+	);
 
     if (resultado.rows.length === 0) {
       return res.status(404).json({
@@ -251,6 +261,11 @@ const eliminarIps = async (req, res) => {
 	========================================= */
 
 	if (resultado.rows[0].fhir_id) {
+		
+		console.log(
+		  'FHIR ID:',
+		  resultado.rows[0].fhir_id
+		);
 
 	  await actualizarOrganizationFhir(
 		resultado.rows[0]
