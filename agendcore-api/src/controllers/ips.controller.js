@@ -19,8 +19,9 @@ const listarIps = async (req, res) => {
         activo,
         fhir_id,
         fecha_creacion
-      FROM ips
-      ORDER BY id_ips DESC
+		FROM ips
+		WHERE activo = true
+		ORDER BY id_ips ASC
     `);
 
     res.json({
