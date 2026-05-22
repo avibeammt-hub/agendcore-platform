@@ -6,9 +6,12 @@ const mapLocation = (sede) => {
 
     id: sede.fhir_id || undefined,
 
-    status: sede.activo
-      ? 'active'
-      : 'inactive',
+    status:
+	  sede.activo === false
+		? 'inactive'
+		: 'active',
+		
+	 mode: 'instance',
 
     name: sede.nombre,
 

@@ -54,8 +54,11 @@ const crearSede = async (req, res) => {
 	  ]
 	);
 
-    const sede = resultado.rows[0];
-
+    
+	const sede = {
+	  ...resultado.rows[0],
+	  activo: true
+	};
     // 3. Enviar a FHIR
     const fhir = await crearLocationFhir({
       ...sede,
