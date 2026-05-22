@@ -6,7 +6,7 @@ const {
   listarSedes,
   actualizarSede,
   eliminarSede
-} = require('../controladores/controladorSedes');
+} = require('../controllers/sedes.controller');
 
 const { validarJWT } = require('../middlewares/authMiddleware');
 
