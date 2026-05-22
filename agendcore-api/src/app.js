@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 const rutasIps = require('./routes/ips.routes');
-//const rutasSedes = require('./routes/sedes.routes');
+const rutasSedes = require('./routes/sedes.routes');
 //const rutasProfesionales = require('./routes/profesionales.routes');
 //const rutasRolesProfesional = require('./routes/rolesProfesional.routes');
 //const rutasServicios = require('./routes/servicios.routes');
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/ips', rutasIps);
-//app.use('/api/sedes', rutasSedes);
+app.use('/api/sedes', rutasSedes);
 //app.use('/api/profesionales', rutasProfesionales);
 //app.use('/api/roles-profesional', rutasRolesProfesional);
 //app.use('/api/servicios', rutasServicios);
