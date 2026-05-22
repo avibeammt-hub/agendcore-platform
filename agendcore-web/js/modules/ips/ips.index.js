@@ -375,14 +375,6 @@ function eliminarIpsVista(id){
 
 window.eliminarIpsVista = eliminarIpsVista;
 
-document.getElementById(
-    'btnConfirmarEliminarIps'
-  )
-  .addEventListener(
-    'click',
-    confirmarEliminarIps
-  );
-
 async function confirmarEliminarIps(){
 
   try {
@@ -430,6 +422,8 @@ async function confirmarEliminarIps(){
     );
   }
 }
+
+window.confirmarEliminarIps = confirmarEliminarIps;
 
 function inicializarBusquedaIps() {
 
