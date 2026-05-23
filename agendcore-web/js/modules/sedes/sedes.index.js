@@ -509,8 +509,8 @@ function inicializarBusquedaSedes() {
     const filtrado = listaSedes.filter(ips => {
 
       return (
-        sedes.nombre?.toLowerCase().includes(texto) ||
-        sedes.identificador?.toLowerCase().includes(texto)
+        sede.nombre?.toLowerCase().includes(texto) ||
+        sede.identificador?.toLowerCase().includes(texto)
       );
 
     });
