@@ -96,6 +96,7 @@ const listarSedes = async (req, res) => {
     const resultado = await baseDatos.query(`
       SELECT *
       FROM sedes
+	  where activo = true
       ORDER BY id_sede DESC
     `);
 
