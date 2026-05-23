@@ -17,6 +17,19 @@ const mapLocation = (sede) => {
 
     description:
       sede.descripcion || '',
+	  
+	identifier: [
+	  {
+		use: 'official',
+		system: 'https://agendcore.com/fhir/identifier/sede',
+		value: sede.identificador || String(sede.id_sede)
+	  },
+	  {
+		use: 'secondary',
+		system: 'https://agendcore.com/fhir/identifier/codigo-habilitacion-sede',
+		value: sede.codigo_habilitacion || ''
+	  }
+	],
 
     telecom: [
 
