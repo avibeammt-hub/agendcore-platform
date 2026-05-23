@@ -97,7 +97,7 @@ const listarSedes = async (req, res) => {
       SELECT *
       FROM sedes
 	  where activo = true
-      ORDER BY id_sede DESC
+      ORDER BY id_sede ASC
     `);
 
     res.json({
