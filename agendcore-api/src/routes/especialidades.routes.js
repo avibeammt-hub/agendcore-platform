@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const validarToken = require('../middlewares/validar_token');
+const { validarJWT } = require('../middlewares/authMiddleware');
 
 const {
   listarEspecialidades,
@@ -10,9 +10,9 @@ const {
   eliminarEspecialidad
 } = require('../controllers/especialidades.controller');
 
-router.get('/', validarToken, listarEspecialidades);
-router.post('/', validarToken, crearEspecialidad);
-router.put('/:id', validarToken, actualizarEspecialidad);
-router.delete('/:id', validarToken, eliminarEspecialidad);
+router.get('/', validarJWT, listarEspecialidades);
+router.post('/', validarJWT, crearEspecialidad);
+router.put('/:id', validarJWT, actualizarEspecialidad);
+router.delete('/:id', validarJWT, eliminarEspecialidad);
 
 module.exports = router;
