@@ -1,7 +1,8 @@
 const baseDatos = require('../config/db');
 
-const { sincronizarCodeSystemEspecialidadesFhir } = require('../servicios/servicioFhir');
+//const { sincronizarCodeSystemEspecialidadesFhir } = require('../servicios/servicioFhir');
 
+/*
 const sincronizarEspecialidadesFhir = async () => {
   const resultado = await baseDatos.query(`
     SELECT id_especialidad, codigo, nombre, activo
@@ -10,7 +11,7 @@ const sincronizarEspecialidadesFhir = async () => {
   `);
 
   return await sincronizarCodeSystemEspecialidadesFhir(resultado.rows);
-};
+};*/
 
 const listarEspecialidades = async (req, res) => {
   try {
@@ -61,7 +62,7 @@ const crearEspecialidad = async (req, res) => {
       nombre
     ]);
 	
-	await sincronizarEspecialidadesFhir();
+	//await sincronizarEspecialidadesFhir();
 
     res.status(201).json({
       ok: true,
@@ -120,7 +121,7 @@ const actualizarEspecialidad = async (req, res) => {
       });
     }
 	
-	await sincronizarEspecialidadesFhir();
+	//await sincronizarEspecialidadesFhir();
 
     res.json({
       ok: true,
@@ -163,7 +164,7 @@ const eliminarEspecialidad = async (req, res) => {
       });
     }
 	
-	await sincronizarEspecialidadesFhir();
+	//await sincronizarEspecialidadesFhir();
 
     res.json({
       ok: true,
