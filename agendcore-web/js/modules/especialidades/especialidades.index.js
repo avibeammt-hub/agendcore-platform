@@ -1,0 +1,363 @@
+let listaEspecialidades = [];
+let especialidadEditar = null;
+let especialidadEliminar = null;
+
+/* =========================================================
+   CARGAR ESPECIALIDADES
+========================================================= */
+
+async function cargarEspecialidades() {
+
+  try {
+
+    mostrarLoader('Cargando especialidades...');
+
+    const respuesta =
+      await listarEspecialidadesApi();
+
+    listaEspecialidades =
+      respuesta.datos || [];
+
+    renderModuloEspecialidades(listaEspecialidades);
+
+    ocultarLoader();
+
+  } catch(error){
+
+    console.error(error);
+
+    ocultarLoader();
+
+    mostrarToast(
+      'Error al cargar especialidades',
+      'danger'
+    );
+  }
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderModuloSedes(datos){
+
+  const contenido =
+    document.getElementById('contenido');
+
+  document.getElementById(
+    'tituloVista'
+  ).textContent = 'Especialidades';
+
+  document.getElementById(
+    'subtituloVista'
+  ).textContent =
+    'Gestión interoperable de especialidades';
+
+  contenido.innerHTML = `
+    <div class="vista">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="fw-bold mb-1">
+            Gestión de Especialidades
+          </h2>
+          <p class="text-muted">
+            Crear, editar y consultar especialidades
+          </p>
+        </div>
+
+        <button
+          class="btn btn-primary btn-lg"
+          onclick="abrirModalNuevaEspecialidad()">
+          <i class="bi bi-plus-circle"></i>
+          Nueva Especialidad
+        </button>
+      </div>
+
+      <div class="row mb-4 g-3">
+        <div class="col-md-4">
+          <div class="kpi-card">
+            <span class="kpi-label">ESPECIALIDADES</span>
+            <h2 id="totalEspecialidades">0</h2>
+            <div class="kpi-icon">
+              <i class="bi bi-heart-pulse"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="kpi-card">
+            <span class="kpi-label">ACTIVAS</span>
+            <h2 id="especialidadesActivas">0</h2>
+            <div class="kpi-icon success">
+              <i class="bi bi-check-circle"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="kpi-card">
+            <span class="kpi-label">ESTADO</span>
+            <h2>ONLINE</h2>
+            <div class="kpi-icon warning">
+              <i class="bi bi-activity"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-toolbar">
+        <div class="search-box">
+          <i class="bi bi-search"></i>
+          <input
+            type="text"
+            id="buscarEspecialidades"
+            placeholder="Buscar especialidades...">
+        </div>
+      </div>
+
+      <div id="contenedorTablaEspecialidades"></div>
+
+    </div>
+  `;
+
+  inicializarBusquedaEspecialidades();
+}
+
+
+
+function abrirModalNuevaEspecialidad() {
+
+  especialidadEditar = null;
+
+  document.getElementById(
+    'tituloModalEspecialidad'
+  ).innerText =
+    'Nueva Especialidad';
+
+  document.getElementById(
+    'formEspecialidad'
+  ).reset();
+
+  const modal =
+    new bootstrap.Modal(
+      document.getElementById(
+        'modalEspecialidad'
+      )
+    );
+
+  modal.show();
+
+}
+
+window.abrirModalNuevaEspecialidad =
+  abrirModalNuevaEspecialidad;
+
+async function guardarEspecialidad() {
+
+  try {
+
+    const datos = {
+      nombre:
+        document.getElementById(
+          'nombreEspecialidad'
+        ).value,
+
+      codigo:
+        document.getElementById(
+          'codigoEspecialidad'
+        ).value,
+
+      activo:
+        document.getElementById(
+          'estadoEspecialidad'
+        ).checked
+    };
+
+    if (especialidadEditar) {
+
+      await actualizarEspecialidadApi(
+        especialidadEditar,
+        datos
+      );
+
+      mostrarToast(
+        'Especialidad actualizada',
+        'success'
+      );
+
+    } else {
+
+      await crearEspecialidadApi(datos);
+
+      mostrarToast(
+        'Especialidad creada',
+        'success'
+      );
+
+    }
+
+    bootstrap.Modal
+      .getInstance(
+        document.getElementById(
+          'modalEspecialidad'
+        )
+      )
+      .hide();
+
+    await cargarEspecialidades();
+
+  } catch (error) {
+
+    console.error(error);
+
+    mostrarToast(
+      'Error al guardar especialidad',
+      'error'
+    );
+
+  }
+
+}
+
+window.guardarEspecialidad =
+  guardarEspecialidad;
+
+function editarEspecialidad(id) {
+
+  const esp =
+    listaEspecialidades.find(
+      e => e.id_especialidad == id
+    );
+
+  if (!esp) return;
+
+  especialidadEditar = id;
+
+  document.getElementById(
+    'tituloModalEspecialidad'
+  ).innerText =
+    'Editar Especialidad';
+
+  document.getElementById(
+    'nombreEspecialidad'
+  ).value =
+    esp.nombre || '';
+
+  document.getElementById(
+    'codigoEspecialidad'
+  ).value =
+    esp.codigo || '';
+
+  document.getElementById(
+    'estadoEspecialidad'
+  ).checked =
+    esp.activo;
+
+  const modal =
+    new bootstrap.Modal(
+      document.getElementById(
+        'modalEspecialidad'
+      )
+    );
+
+  modal.show();
+
+}
+
+window.editarEspecialidad =
+  editarEspecialidad;
+
+function eliminarEspecialidadVista(id) {
+
+  especialidadEliminar = id;
+
+  const modal =
+    new bootstrap.Modal(
+      document.getElementById(
+        'modalEliminarEspecialidad'
+      )
+    );
+
+  modal.show();
+
+}
+
+window.eliminarEspecialidadVista =
+  eliminarEspecialidadVista;
+
+async function confirmarEliminarEspecialidad() {
+
+  try {
+
+    await eliminarEspecialidadApi(
+      especialidadEliminar
+    );
+
+    bootstrap.Modal
+      .getInstance(
+        document.getElementById(
+          'modalEliminarEspecialidad'
+        )
+      )
+      .hide();
+
+    mostrarToast(
+      'Especialidad eliminada',
+      'success'
+    );
+
+    await cargarEspecialidades();
+
+  } catch (error) {
+
+    console.error(error);
+
+    mostrarToast(
+      'Error al eliminar especialidad',
+      'error'
+    );
+
+  }
+
+}
+
+window.confirmarEliminarEspecialidad =
+  confirmarEliminarEspecialidad;
+
+function inicializarBusquedaEspecialidades() {
+
+  const input =
+    document.getElementById(
+      'buscarEspecialidades'
+    );
+
+  input.addEventListener('keyup', e => {
+
+    const texto =
+      e.target.value.toLowerCase();
+
+    const filtrado =
+      listaEspecialidades.filter(esp => {
+
+        return (
+          esp.nombre
+            ?.toLowerCase()
+            .includes(texto)
+
+          ||
+
+          esp.codigo
+            ?.toLowerCase()
+            .includes(texto)
+        );
+
+      });
+
+    renderModuloEspecialidades(
+      filtrado
+    );
+
+  });
+
+}

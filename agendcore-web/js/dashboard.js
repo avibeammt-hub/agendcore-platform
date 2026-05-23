@@ -312,6 +312,8 @@ async function cargarModales(){
     fetch('./views/modals/ips.delete.html'),
     fetch('./views/modals/sedes.modal.html'),
     fetch('./views/modals/sedes.delete.html')
+	fetch('./views/modals/especialidades.modal.html'),
+    fetch('./views/modals/especialidades.delete.html')
 
   ]);
 
@@ -326,10 +328,16 @@ async function cargarModales(){
 
   const htmlDeleteSedes =
     await modalDeleteSedes.text();
+	
+  const htmlEspecialidades =
+    await modalEspecialidades.text();
+
+  const htmlDeleteEspecialidades =
+    await modalDeleteEspecialidades.text();
 
   contenedor.innerHTML =
 
-    htmlIps + htmlDeleteIps + htmlSedes + htmlDeleteSedes;
+    htmlIps + htmlDeleteIps + htmlSedes + htmlDeleteSedes + htmlEspecialidades + htmlDeleteEspecialidades;
 }
 
 // =========================
