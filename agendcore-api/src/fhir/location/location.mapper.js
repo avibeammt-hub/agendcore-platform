@@ -28,9 +28,7 @@ const mapLocation = (sede) => {
 
     ],
 
-    address: [
-
-      {
+    address: {
         use: 'work',
 
         type: 'physical',
@@ -40,9 +38,7 @@ const mapLocation = (sede) => {
         city: sede.ciudad || '',
 
         country: 'CO'
-      }
-
-    ],
+      },
 
     managingOrganization: {
       reference:
