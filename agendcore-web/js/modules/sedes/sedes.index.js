@@ -506,19 +506,20 @@ function inicializarBusquedaSedes() {
 
     const texto = e.target.value.toLowerCase();
 
-    const filtrado = listaSedes.filter(ips => {
+    const filtrado = listaSedes.filter(sede => {
 
       return (
         sede.nombre?.toLowerCase().includes(texto) ||
-        sede.identificador?.toLowerCase().includes(texto)
+        sede.identificador?.toLowerCase().includes(texto) ||
+        sede.codigo_habilitacion?.toLowerCase().includes(texto) ||
+        sede.direccion?.toLowerCase().includes(texto)
       );
 
     });
 
     document.querySelector('.table-responsive').outerHTML =
-      renderTablaIps(filtrado);
+      renderTablaSedes(filtrado);
 
   });
 }
-
 
