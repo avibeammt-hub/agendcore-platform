@@ -39,7 +39,7 @@ async function cargarEspecialidades() {
    RENDER
 ========================================================= */
 
-function renderModuloSedes(datos){
+function renderModuloEspecialidades(datos){
 
   const contenido =
     document.getElementById('contenido');
