@@ -8,7 +8,7 @@ const {
   crearEspecialidad,
   actualizarEspecialidad,
   eliminarEspecialidad
-} = require('../controladores/controladorEspecialidades');
+} = require('../controllers/especialidades.controller');
 
 router.get('/', validarToken, listarEspecialidades);
 router.post('/', validarToken, crearEspecialidad);
