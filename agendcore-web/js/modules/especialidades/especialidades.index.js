@@ -390,7 +390,7 @@ function eliminarEspecialidadVista(id) {
 	btn.onclick =
     confirmarEliminarEspecialidad;
 
-  modal.show();
+  modalEliminarEspecialidad.show();
 }
 
 window.eliminarEspecialidadVista =
