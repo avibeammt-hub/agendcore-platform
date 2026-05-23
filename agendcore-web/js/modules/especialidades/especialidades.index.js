@@ -230,26 +230,59 @@ async function guardarEspecialidad() {
         ).checked
     };
 
-    if (especialidadEditar) {
-
-      await actualizarEspecialidadApi(
-        especialidadEditar,
-        datos
-      );
+    if (!datos.nombre){
 
       mostrarToast(
-        'Especialidad actualizada',
-        'success'
+        'Ingrese especialidad',
+        'warning'
       );
+
+      return;
+    }
+
+    if (!datos.codigo){
+
+      mostrarToast(
+        'Ingrese código especialidad',
+        'warning'
+      );
+
+      return;
+    }
+
+    mostrarLoader(
+      'Guardando especialidad...'
+    );
+
+    let respuesta;
+
+    if (especialidadEditar) {
+
+      respuesta =
+        await actualizarEspecialidadApi(
+          especialidadEditar,
+          datos
+        );
 
     } else {
 
-      await crearEspecialidadApi(datos);
+      respuesta =
+        await crearEspecialidadApi(
+          datos
+        );
+    }
+
+    ocultarLoader();
+
+    if (!respuesta.ok){
 
       mostrarToast(
-        'Especialidad creada',
-        'success'
+        respuesta.mensaje ||
+        'No fue posible guardar especialidad',
+        'danger'
       );
+
+      return;
     }
 
     bootstrap.Modal
@@ -260,15 +293,24 @@ async function guardarEspecialidad() {
       )
       .hide();
 
+    mostrarToast(
+      especialidadEditar
+        ? 'Especialidad actualizada'
+        : 'Especialidad creada',
+      'success'
+    );
+
     await cargarEspecialidades();
 
   } catch (error) {
 
     console.error(error);
 
+    ocultarLoader();
+
     mostrarToast(
       'Error al guardar especialidad',
-      'error'
+      'danger'
     );
   }
 }
@@ -328,16 +370,27 @@ window.editarEspecialidad =
    ELIMINAR
 ========================================================= */
 
+let especialidadEliminar = null;
+let modalEliminarEspecialidad = null;
+
 function eliminarEspecialidadVista(id) {
 
   especialidadEliminar = id;
 
-  const modal =
+  modalEliminarEspecialidad =
     new bootstrap.Modal(
       document.getElementById(
         'modalEliminarEspecialidad'
       )
     );
+	
+	const btn =
+    document.getElementById(
+      'btnEliminarEspecialidad'
+    );
+
+	btn.onclick =
+    confirmarEliminarEspecialidad;
 
   modal.show();
 }
@@ -349,32 +402,46 @@ async function confirmarEliminarEspecialidad() {
 
   try {
 
-    await eliminarEspecialidadApi(
-      especialidadEliminar
+    mostrarLoader(
+      'Eliminando especialidad...'
     );
 
-    bootstrap.Modal
-      .getInstance(
-        document.getElementById(
-          'modalEliminarEspecialidad'
-        )
-      )
-      .hide();
+    const respuesta =
+      await eliminarEspecialidadApi(
+        especialidadEliminar
+      );
+
+    ocultarLoader();
+
+    if (!respuesta.ok){
+
+      mostrarToast(
+        respuesta.mensaje ||
+        'No fue posible eliminar especialidad',
+        'danger'
+      );
+
+      return;
+    }
+
+    modalEliminarEspecialidad.hide();
 
     mostrarToast(
-      'Especialidad eliminada',
+      'Especialidad eliminada correctamente',
       'success'
     );
 
     await cargarEspecialidades();
 
-  } catch (error) {
+  } catch(error){
 
     console.error(error);
 
+    ocultarLoader();
+
     mostrarToast(
       'Error al eliminar especialidad',
-      'error'
+      'danger'
     );
   }
 }

@@ -426,7 +426,7 @@ async function confirmarEliminarSede(){
   try {
 
     mostrarLoader(
-      'Inactivando sede...'
+      'Eliminando sede...'
     );
 
     const respuesta =
@@ -440,7 +440,7 @@ async function confirmarEliminarSede(){
 
       mostrarToast(
         respuesta.mensaje ||
-        'No fue posible inactivar sede',
+        'No fue posible eliminar sede',
         'danger'
       );
 
@@ -450,7 +450,7 @@ async function confirmarEliminarSede(){
     modalEliminarSede.hide();
 
     mostrarToast(
-      'Sede inactivada correctamente',
+      'Sede eliminada correctamente',
       'success'
     );
 
