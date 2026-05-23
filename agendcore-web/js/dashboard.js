@@ -144,18 +144,8 @@ if (vista === 'sedes') {
 
 	  subtitulo.textContent =
 		'Administración de especialidades';
-
-	  contenido.innerHTML = `
-		<div class="vista">
-		  <div class="empty-module">
-			<i class="bi bi-heart-pulse"></i>
-			<h3>Módulo de especialidades</h3>
-			<p>
-			  Próximamente disponible
-			</p>
-		  </div>
-		</div>
-	  `;
+		
+		
 	}
 
   // =========================
@@ -305,13 +295,15 @@ async function cargarModales(){
     modalIps,
     modalDeleteIps,
     modalSedes,
-    modalDeleteSedes
+    modalDeleteSedes,
+	modalEspecialidades,
+    modalDeleteEspecialidades
   ] = await Promise.all([
 
     fetch('./views/modals/ips.modal.html'),
     fetch('./views/modals/ips.delete.html'),
     fetch('./views/modals/sedes.modal.html'),
-    fetch('./views/modals/sedes.delete.html')
+    fetch('./views/modals/sedes.delete.html'),
 	fetch('./views/modals/especialidades.modal.html'),
     fetch('./views/modals/especialidades.delete.html')
 
