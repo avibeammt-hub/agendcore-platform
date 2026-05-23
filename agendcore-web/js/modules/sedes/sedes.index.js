@@ -174,13 +174,15 @@ function renderModuloSedes(datos){
    MODAL NUEVA SEDE
 ========================================================= */
 
-function abrirModalNuevaSede(){
+async function abrirModalNuevaSede(){
 
   editandoSede = null;
 
   document.getElementById(
     'formSede'
   ).reset();
+  
+  await cargarComboIpsSede();
 
   document.querySelector(
     '#modalSede .modal-title'
@@ -235,7 +237,7 @@ async function guardarSede(){
           'direccionSede'
         ).value,
 
-      id_ips: 1
+      id_ips: document.getElementById('ipsSede').value
     };
 
     if (!datos.nombre){
@@ -247,6 +249,11 @@ async function guardarSede(){
 
       return;
     }
+	
+	if (!datos.id_ips){
+	  mostrarToast('Seleccione una IPS', 'warning');
+	  return;
+	}
 
     mostrarLoader(
       'Guardando sede...'
@@ -313,7 +320,9 @@ window.guardarSede =
    EDITAR SEDE
 ========================================================= */
 
-function editarSede(id){
+async function editarSede(id){
+	
+	await cargarComboIpsSede();
 
   const sede =
     listaSedes.find(
@@ -361,6 +370,9 @@ function editarSede(id){
     'direccionSede'
   ).value =
     sede.direccion || '';
+	
+  document.getElementById('ipsSede').value =
+  sede.id_ips || '';
 
   modalSede =
     new bootstrap.Modal(
@@ -454,3 +466,33 @@ async function confirmarEliminarSede(){
     );
   }
 }
+
+async function cargarComboIpsSede(){
+
+  const select =
+    document.getElementById('ipsSede');
+
+  select.innerHTML = `
+    <option value="">
+      Seleccione IPS
+    </option>
+  `;
+
+  const respuesta =
+    await listarIpsApi();
+
+  const ipsActivas =
+    (respuesta.datos || [])
+      .filter(ips => ips.activo);
+
+  ipsActivas.forEach(ips => {
+
+    select.innerHTML += `
+      <option value="${ips.id_ips}">
+        ${ips.nombre} - ${ips.nit || 'Sin NIT'}
+      </option>
+    `;
+
+  });
+}
+
