@@ -18,7 +18,9 @@ async function cargarEspecialidades() {
     listaEspecialidades =
       respuesta.datos || [];
 
-    renderModuloEspecialidades(listaEspecialidades);
+    renderModuloEspecialidades(
+      listaEspecialidades
+    );
 
     ocultarLoader();
 
@@ -61,6 +63,7 @@ function renderModuloEspecialidades(datos){
           <h2 class="fw-bold mb-1">
             Gestión de Especialidades
           </h2>
+
           <p class="text-muted">
             Crear, editar y consultar especialidades
           </p>
@@ -69,51 +72,83 @@ function renderModuloEspecialidades(datos){
         <button
           class="btn btn-primary btn-lg"
           onclick="abrirModalNuevaEspecialidad()">
+
           <i class="bi bi-plus-circle"></i>
           Nueva Especialidad
         </button>
       </div>
 
       <div class="row mb-4 g-3">
+
         <div class="col-md-4">
           <div class="kpi-card">
-            <span class="kpi-label">ESPECIALIDADES</span>
-            <h2 id="totalEspecialidades">0</h2>
+
+            <span class="kpi-label">
+              ESPECIALIDADES
+            </span>
+
+            <h2 id="totalEspecialidades">
+              0
+            </h2>
+
             <div class="kpi-icon">
               <i class="bi bi-heart-pulse"></i>
             </div>
+
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="kpi-card">
-            <span class="kpi-label">ACTIVAS</span>
-            <h2 id="especialidadesActivas">0</h2>
+
+            <span class="kpi-label">
+              ACTIVAS
+            </span>
+
+            <h2 id="especialidadesActivas">
+              0
+            </h2>
+
             <div class="kpi-icon success">
               <i class="bi bi-check-circle"></i>
             </div>
+
           </div>
         </div>
 
         <div class="col-md-4">
           <div class="kpi-card">
-            <span class="kpi-label">ESTADO</span>
-            <h2>ONLINE</h2>
+
+            <span class="kpi-label">
+              ESTADO
+            </span>
+
+            <h2>
+              ONLINE
+            </h2>
+
             <div class="kpi-icon warning">
               <i class="bi bi-activity"></i>
             </div>
+
           </div>
         </div>
+
       </div>
 
       <div class="table-toolbar">
+
         <div class="search-box">
+
           <i class="bi bi-search"></i>
+
           <input
             type="text"
             id="buscarEspecialidades"
             placeholder="Buscar especialidades...">
+
         </div>
+
       </div>
 
       <div id="contenedorTablaEspecialidades"></div>
@@ -121,18 +156,35 @@ function renderModuloEspecialidades(datos){
     </div>
   `;
 
+  document.getElementById(
+    'totalEspecialidades'
+  ).textContent =
+    datos.length;
+
+  document.getElementById(
+    'especialidadesActivas'
+  ).textContent =
+    datos.filter(x => x.activo).length;
+
+  document.getElementById(
+    'contenedorTablaEspecialidades'
+  ).innerHTML =
+    renderTablaEspecialidades(datos);
+
   inicializarBusquedaEspecialidades();
 }
 
+/* =========================================================
+   NUEVA ESPECIALIDAD
+========================================================= */
 
-
-function abrirModalNuevaEspecialidad() {
+async function abrirModalNuevaEspecialidad() {
 
   especialidadEditar = null;
 
-  document.getElementById(
-    'tituloModalEspecialidad'
-  ).innerText =
+  document.querySelector(
+    '#modalEspecialidad .modal-title'
+  ).textContent =
     'Nueva Especialidad';
 
   document.getElementById(
@@ -147,17 +199,21 @@ function abrirModalNuevaEspecialidad() {
     );
 
   modal.show();
-
 }
 
 window.abrirModalNuevaEspecialidad =
   abrirModalNuevaEspecialidad;
+
+/* =========================================================
+   GUARDAR
+========================================================= */
 
 async function guardarEspecialidad() {
 
   try {
 
     const datos = {
+
       nombre:
         document.getElementById(
           'nombreEspecialidad'
@@ -194,7 +250,6 @@ async function guardarEspecialidad() {
         'Especialidad creada',
         'success'
       );
-
     }
 
     bootstrap.Modal
@@ -215,13 +270,15 @@ async function guardarEspecialidad() {
       'Error al guardar especialidad',
       'error'
     );
-
   }
-
 }
 
 window.guardarEspecialidad =
   guardarEspecialidad;
+
+/* =========================================================
+   EDITAR
+========================================================= */
 
 function editarEspecialidad(id) {
 
@@ -234,9 +291,9 @@ function editarEspecialidad(id) {
 
   especialidadEditar = id;
 
-  document.getElementById(
-    'tituloModalEspecialidad'
-  ).innerText =
+  document.querySelector(
+    '#modalEspecialidad .modal-title'
+  ).textContent =
     'Editar Especialidad';
 
   document.getElementById(
@@ -262,11 +319,14 @@ function editarEspecialidad(id) {
     );
 
   modal.show();
-
 }
 
 window.editarEspecialidad =
   editarEspecialidad;
+
+/* =========================================================
+   ELIMINAR
+========================================================= */
 
 function eliminarEspecialidadVista(id) {
 
@@ -280,7 +340,6 @@ function eliminarEspecialidadVista(id) {
     );
 
   modal.show();
-
 }
 
 window.eliminarEspecialidadVista =
@@ -317,13 +376,15 @@ async function confirmarEliminarEspecialidad() {
       'Error al eliminar especialidad',
       'error'
     );
-
   }
-
 }
 
 window.confirmarEliminarEspecialidad =
   confirmarEliminarEspecialidad;
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
 
 function inicializarBusquedaEspecialidades() {
 
@@ -341,6 +402,7 @@ function inicializarBusquedaEspecialidades() {
       listaEspecialidades.filter(esp => {
 
         return (
+
           esp.nombre
             ?.toLowerCase()
             .includes(texto)
@@ -350,14 +412,29 @@ function inicializarBusquedaEspecialidades() {
           esp.codigo
             ?.toLowerCase()
             .includes(texto)
+
         );
 
       });
 
-    renderModuloEspecialidades(
-      filtrado
-    );
+    document.getElementById(
+      'contenedorTablaEspecialidades'
+    ).innerHTML =
+      renderTablaEspecialidades(
+        filtrado
+      );
+
+    document.getElementById(
+      'totalEspecialidades'
+    ).textContent =
+      filtrado.length;
+
+    document.getElementById(
+      'especialidadesActivas'
+    ).textContent =
+      filtrado.filter(
+        x => x.activo
+      ).length;
 
   });
-
 }
