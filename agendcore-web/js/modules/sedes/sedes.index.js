@@ -168,6 +168,8 @@ function renderModuloSedes(datos){
 	${renderTablaSedes(datos)}
 
     `;
+	
+ inicializarBusquedaSedes();
 }
 
 /* =========================================================
@@ -495,4 +497,28 @@ async function cargarComboIpsSede(){
 
   });
 }
+
+function inicializarBusquedaSedes() {
+
+  const input = document.getElementById('buscarIps');
+
+  input.addEventListener('keyup', e => {
+
+    const texto = e.target.value.toLowerCase();
+
+    const filtrado = listaIps.filter(ips => {
+
+      return (
+        ips.nombre?.toLowerCase().includes(texto) ||
+        ips.nit?.toLowerCase().includes(texto)
+      );
+
+    });
+
+    document.querySelector('.table-responsive').outerHTML =
+      renderTablaIps(filtrado);
+
+  });
+}
+
 
