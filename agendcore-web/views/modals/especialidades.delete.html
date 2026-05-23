@@ -1,59 +1,47 @@
 <div
   class="modal fade"
   id="modalEliminarEspecialidad"
-  tabindex="-1"
-  aria-hidden="true">
+  tabindex="-1">
 
   <div class="modal-dialog modal-dialog-centered">
 
-    <div class="modal-content delete-modal">
+    <div class="modal-content modal-pro">
 
-      <div class="delete-icon-wrapper">
+      <div class="modal-body p-5 text-center">
 
-        <div class="delete-icon">
-          <i class="bi bi-trash"></i>
+        <div class="delete-icon mb-4">
+          <i class="bi bi-trash3"></i>
+        </div>
+
+        <h3 class="fw-bold mb-3">
+          Inactivar Especialidad
+        </h3>
+
+        <p class="text-muted mb-4">
+          Esta acción cambiará el estado de la especialidad a inactivo.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3">
+
+          <button
+            class="btn btn-light btn-lg"
+            data-bs-dismiss="modal">
+            Cancelar
+          </button>
+
+          <button
+            class="btn btn-danger btn-lg"
+            onclick="confirmarEliminarEspecialidad()">
+            <i class="bi bi-trash"></i>
+            Inactivar Especialidad
+          </button>
+
         </div>
 
       </div>
 
-      <div class="modal-body text-center">
-
-        <h2 class="delete-title">
-          Eliminar Especialidad
-        </h2>
-
-        <p class="delete-description">
-
-          Esta acción cambiará el estado
-          de la especialidad a inactivo.
-
-        </p>
-
-      </div>
-
-      <div class="modal-footer delete-footer">
-
-        <button
-          type="button"
-          class="btn btn-light btn-lg"
-          data-bs-dismiss="modal">
-
-          Cancelar
-
-        </button>
-
-        <button
-          type="button"
-          class="btn btn-danger btn-lg"
-          onclick="confirmarEliminarEspecialidad()">
-
-          <i class="bi bi-trash"></i>
-          Eliminar
-
-        </button>
-
-      </div>
-
     </div>
+
   </div>
+
 </div>
