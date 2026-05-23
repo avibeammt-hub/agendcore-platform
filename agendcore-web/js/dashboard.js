@@ -145,7 +145,7 @@ if (vista === 'sedes') {
 	  subtitulo.textContent =
 		'Administración de especialidades';
 		
-		
+		cargarEspecialidades();
 	}
 
   // =========================
