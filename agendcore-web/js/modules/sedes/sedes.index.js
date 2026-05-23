@@ -500,17 +500,17 @@ async function cargarComboIpsSede(){
 
 function inicializarBusquedaSedes() {
 
-  const input = document.getElementById('buscarIps');
+  const input = document.getElementById('buscarSedes');
 
   input.addEventListener('keyup', e => {
 
     const texto = e.target.value.toLowerCase();
 
-    const filtrado = listaIps.filter(ips => {
+    const filtrado = listaSedes.filter(ips => {
 
       return (
-        ips.nombre?.toLowerCase().includes(texto) ||
-        ips.nit?.toLowerCase().includes(texto)
+        sedes.nombre?.toLowerCase().includes(texto) ||
+        sedes.identificador?.toLowerCase().includes(texto)
       );
 
     });
