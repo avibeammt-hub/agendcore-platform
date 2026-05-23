@@ -1,6 +1,7 @@
 let listaEspecialidades = [];
 let especialidadEditar = null;
 let especialidadEliminar = null;
+let modalEliminarEspecialidad = null;
 
 /* =========================================================
    CARGAR ESPECIALIDADES
@@ -369,9 +370,6 @@ window.editarEspecialidad =
 /* =========================================================
    ELIMINAR
 ========================================================= */
-
-let especialidadEliminar = null;
-let modalEliminarEspecialidad = null;
 
 function eliminarEspecialidadVista(id) {
 
