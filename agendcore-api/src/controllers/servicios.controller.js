@@ -1,5 +1,5 @@
 const baseDatos = require('../config/db');
-const { crearHealthcareServiceFhir } = require('../servicios/servicioFhir');
+//const { crearHealthcareServiceFhir } = require('../servicios/servicioFhir');
 
 const listarServicios = async (req, res) => {
   try {
