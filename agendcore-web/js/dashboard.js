@@ -159,17 +159,7 @@ if (vista === 'sedes') {
 	  subtitulo.textContent =
 		'Administración de servicios';
 
-	  contenido.innerHTML = `
-		<div class="vista">
-		  <div class="empty-module">
-			<i class="bi bi-clipboard2-pulse"></i>
-			<h3>Módulo de servicios</h3>
-			<p>
-			  Próximamente disponible
-			</p>
-		  </div>
-		</div>
-	  `;
+	  cargarServicios();
 	}
 
   // =========================
@@ -297,7 +287,10 @@ async function cargarModales(){
     modalSedes,
     modalDeleteSedes,
 	modalEspecialidades,
-    modalDeleteEspecialidades
+    modalDeleteEspecialidades,
+	modalServicios,
+    modalDeleteServicios,
+	
   ] = await Promise.all([
 
     fetch('./views/modals/ips.modal.html'),
@@ -305,7 +298,9 @@ async function cargarModales(){
     fetch('./views/modals/sedes.modal.html'),
     fetch('./views/modals/sedes.delete.html'),
 	fetch('./views/modals/especialidades.modal.html'),
-    fetch('./views/modals/especialidades.delete.html')
+    fetch('./views/modals/especialidades.delete.html'),
+	fetch('./views/modals/servicios.modal.html'),
+	fetch('./views/modals/servicios.delete.html')
 
   ]);
 
@@ -326,10 +321,16 @@ async function cargarModales(){
 
   const htmlDeleteEspecialidades =
     await modalDeleteEspecialidades.text();
+	
+  const htmlServicios =
+    await modalServicios.text();
+
+  const htmlDeleteServicios =
+    await modalDeleteServicios.text();
 
   contenedor.innerHTML =
 
-    htmlIps + htmlDeleteIps + htmlSedes + htmlDeleteSedes + htmlEspecialidades + htmlDeleteEspecialidades;
+    htmlIps + htmlDeleteIps + htmlSedes + htmlDeleteSedes + htmlEspecialidades + htmlDeleteEspecialidades + htmlServicios + htmlDeleteServicios ;
 }
 
 // =========================

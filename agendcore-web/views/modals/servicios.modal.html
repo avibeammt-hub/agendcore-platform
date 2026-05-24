@@ -1,0 +1,102 @@
+<div
+  class="modal fade"
+  id="modalServicio"
+  tabindex="-1">
+
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <div>
+          <h4 class="modal-title fw-bold mb-1">
+            Nuevo Servicio
+          </h4>
+
+          <p class="mb-0 opacity-75">
+            Registro de servicio de salud
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal">
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <form id="formServicio">
+
+          <div class="row g-4">
+
+            <div class="col-md-6">
+              <label class="form-label">IPS *</label>
+              <select class="form-control" id="ipsServicio">
+                <option value="">Seleccione IPS</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Sede *</label>
+              <select class="form-control" id="sedeServicio">
+                <option value="">Seleccione sede</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Especialidad</label>
+              <select class="form-control" id="especialidadServicio">
+                <option value="">Seleccione especialidad</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Nombre servicio *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombreServicio">
+            </div>
+
+            <div class="col-md-12">
+              <label class="form-label">Descripción</label>
+              <input
+                type="text"
+                class="form-control"
+                id="descripcionServicio">
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-light"
+          data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <button
+          class="btn-save"
+          onclick="guardarServicio()">
+
+          <i class="bi bi-check-circle"></i>
+          Guardar servicio
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
